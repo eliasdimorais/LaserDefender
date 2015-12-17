@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject laser; 
 	public float projectileSpeed;
 	public float firingRate = 0.2f;
-	public float health;
+	public float health = 250f;
 	public float speed = 15.0f;
 	public float padding;
 	
@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour {
 		float newX = Mathf.Clamp(transform.position.x, xmin,xmax);
 		transform.position = new Vector3(newX, transform.position.y, transform.position.z);
 	}
+	
 	void OnTriggerEnter2D(Collider2D collider){
 		Projectile missile = collider.gameObject.GetComponent<Projectile>();
 		if(missile){

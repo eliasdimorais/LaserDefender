@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyBehavior : MonoBehaviour {
 	
 	public GameObject projectile;
-	public float projectileSpeed;
+	public float projectileSpeed = 7;
 	public float health = 150;
 	public float shotsPerSeconds = 0.5f;
 	
@@ -16,6 +16,7 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 	
 	void Fire(){
+		//start shooting above object
 		Vector3 startPosition = transform.position + new Vector3(0, -1, 0);
 		GameObject missile = Instantiate(projectile, startPosition, Quaternion.identity) as GameObject;
 		missile.rigidbody2D.velocity = new Vector2(0, -projectileSpeed);
