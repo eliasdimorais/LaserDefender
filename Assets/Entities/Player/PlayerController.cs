@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public float speed = 15.0f;
 	public float padding;
 	public AudioClip fireSound;
+	public AudioClip deathSound;
 	
 	float xmin;
 	float xmax;
@@ -55,9 +56,11 @@ public class PlayerController : MonoBehaviour {
 			missile.Hit();
 			if (health <= 0){
 				Destroy(gameObject);
+				AudioSource.PlayClipAtPoint(deathSound, transform.position);
 			}
 		}
 	}
+	
 	
 	
 	

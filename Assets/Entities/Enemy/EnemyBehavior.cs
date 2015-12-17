@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyBehavior : MonoBehaviour {
 	
 	public GameObject projectile;
-	public float projectileSpeed = 7;
+	public float projectileSpeed = 5;
 	public float health = 150;
 	public float shotsPerSeconds = 0.5f;
 	public int scoreValue = 150;
