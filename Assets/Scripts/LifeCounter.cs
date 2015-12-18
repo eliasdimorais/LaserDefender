@@ -4,12 +4,16 @@ using UnityEngine.UI;
 
 public class LifeCounter : MonoBehaviour {
 
-	public static int lifeRemain = 3; //change number lives here and under Reset method
+	public static int lifeRemain = 3; //change number lives here and ALSO on Reset() method
 	private Text myText;
 	
 	void Start(){
 		myText = GetComponent<Text>();
-		Reset();
+		if(lifeRemain > 1){
+			lifeRemain = 3;
+		}else{
+			Reset();
+		}
 	}
 	public void Lives(int lives){
 		Debug.Log("Lost one life");

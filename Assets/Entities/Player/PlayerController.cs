@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour {
 	void Die(){
 		LevelManager man = GameObject.Find ("LevelManager").GetComponent<LevelManager>();
 		man.LoadLevel("Win Screen");
+		//if there is an stamina life just create a method above somewhere and call here
 		Destroy(gameObject);
 	}
 	
