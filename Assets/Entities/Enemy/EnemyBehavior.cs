@@ -11,8 +11,8 @@ public class EnemyBehavior : MonoBehaviour {
 	public AudioClip fireSound;
 	public AudioClip deathSound;
 	
-	
 	private ScoreKeeper scoreKeeper;
+	
 	
 	void Start(){
 		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();

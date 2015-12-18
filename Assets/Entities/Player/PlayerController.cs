@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour {
 	public float padding;
 	public AudioClip fireSound;
 	public AudioClip deathSound;
+	public int lifeValue = 1;
+	
+	private LifeCounter lifeCounter;
 	
 	float xmin;
 	float xmax;
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 		float distance = transform.position.z - Camera.main.transform.position.z;
 		xmin = camera.ViewportToWorldPoint(new Vector3(0,0,distance)).x + padding;
 		xmax = camera.ViewportToWorldPoint(new Vector3(1,0,distance)).x - padding;
+		lifeCounter = GameObject.Find("Life").GetComponent<LifeCounter>();
 		
 	}
 	void Fire(){
@@ -54,13 +58,19 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log("Player Collided with a missile");
 			health -= missile.GetDamage();
 			missile.Hit();
+			lifeCounter.Lives(lifeValue);
 			if (health <= 0){
-				Destroy(gameObject);
+				Die();
 				AudioSource.PlayClipAtPoint(deathSound, transform.position);
 			}
 		}
 	}
 	
+	void Die(){
+		LevelManager man = GameObject.Find ("LevelManager").GetComponent<LevelManager>();
+		man.LoadLevel("Win Screen");
+		Destroy(gameObject);
+	}
 	
 	
 	
