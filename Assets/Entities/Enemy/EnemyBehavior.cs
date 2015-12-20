@@ -3,20 +3,24 @@ using System.Collections;
 
 public class EnemyBehavior : MonoBehaviour {
 	
+	#region Public Variables
 	public GameObject projectile;
 	public float projectileSpeed = 5;
 	public float health = 150;
 	public float shotsPerSeconds = 0.5f;
-	public int scoreValue = 150;
+	public int scoreValue = 0;
 	public AudioClip fireSound;
 	public AudioClip deathSound;
 	
-	private ScoreKeeper scoreKeeper;
+	#endregion
 	
+	#region Private variables
+	private ScoreKeeper scoreKeeper;
+	#endregion
 	
 	void Start(){
-		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
-	}
+		scoreKeeper = GameObject.Find("GameController").GetComponent<ScoreKeeper>(); //Agora acha o objeto "GameController", não o texto de score
+    }
 	
 	void Update(){
 		float probability = Time.deltaTime * shotsPerSeconds;
@@ -29,7 +33,7 @@ public class EnemyBehavior : MonoBehaviour {
 		//start shooting above object
 		Vector3 startPosition = transform.position + new Vector3(0, -1, 0);
 		GameObject laser = Instantiate(projectile, startPosition, Quaternion.identity) as GameObject;
-		laser.rigidbody2D.velocity = new Vector2(0, -projectileSpeed);
+		laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -projectileSpeed);
 		AudioSource.PlayClipAtPoint(fireSound, transform.position);
 	}
 	

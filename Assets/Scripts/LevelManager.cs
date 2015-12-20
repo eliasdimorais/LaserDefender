@@ -1,34 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LevelManager : MonoBehaviour {
-	
-	public float minScoreToLevelUp = 500;
-	
-	public void LoadLevel(string name){
+public class LevelManager : MonoBehaviour
+{
+
+	//Esses dois métodos fazem essencialmente a mesma coisa
+	public void LoadLevel(string name)
+    {
 		Debug.Log ("New Level load: " + name);
 		Application.LoadLevel (name);
 	}
-	public void BackMenu(string name){
-		Application.LoadLevel(name);
-	}
-	public void QuitRequest(){
+	public void QuitRequest()
+    {
 		Debug.Log ("Quit requested");
 		Application.Quit ();
 	}
 
-	public void LoadNextLevel(){
-		Debug.Log(ScoreKeeper.score);
-		if(LifeCounter.lifeRemain > 0 && ScoreKeeper.lastScore >= minScoreToLevelUp){
-			ScoreKeeper.SaveScore();
+	public void LoadNextLevel()
+    {
+		Debug.Log(PlayerPrefs.GetInt("LastScore: ")); //Aqui é um jeito de imprimir o valor salvo do PlayerPrefs.
+		if(LifeCounter.lifeRemain > 0 && PlayerPrefs.GetInt("LastScore") >= ScoreKeeper.minWaveToLevelUp)
+        {
+			gameObject.GetComponent<ScoreKeeper>().SaveScore(); //Precisa da referencia pro script, que coloquei em um mesmo objeto os 3 pra facilitar.
 			ScoreUp();	
 			Application.LoadLevel(Application.loadedLevel + 1);
 		}
-		Debug.Log ("New Level load: " + name);
 	}
 
-	public void ScoreUp(){
-		minScoreToLevelUp += minScoreToLevelUp + 2000;
+	public void ScoreUp()
+    {
+        //minScoreToLevelUp += minScoreToLevelUp + 2000; //Essa linha ficou meio ambigua pelo += e a mesma variavel depois.
+        ScoreKeeper.minWaveToLevelUp += 3;
 	}
 	
 }

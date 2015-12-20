@@ -2,26 +2,29 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class LifeCounter : MonoBehaviour {
+public class LifeCounter : MonoBehaviour
+{
 
 	public static int lifeRemain = 3; //change number lives here and ALSO on Reset() method
-	private Text myText;
+	public Text lifeText;
 	
-	void Start(){
-		myText = GetComponent<Text>();
-		if(lifeRemain > 1){
+	void Start()
+    {
+		if(lifeRemain > 1)
 			lifeRemain = 3;
-		}else{
+        else
 			Reset();
-		}
 	}
-	public void Lives(int lives){
+
+	public void Lives(int lives)
+    {
 		Debug.Log("Lost one life");
 		lifeRemain -= lives;
-		myText.text = lifeRemain.ToString();
+		lifeText.text = lifeRemain.ToString();
 	}
 	
-	public static void Reset(){
+	public static void Reset()
+    {
 		lifeRemain = 3; 
 	}
 }

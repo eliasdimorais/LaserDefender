@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 	
+	#region Public Variables
 	public GameObject laser; 
 	public float projectileSpeed;
 	public float firingRate = 0.2f;
@@ -13,8 +14,11 @@ public class PlayerController : MonoBehaviour {
 	public AudioClip deathSound;
 	public int lifeValue = 1;
 	
+	#endregion
+	#region Private Variables
 	private LifeCounter lifeCounter;
 	
+	#endregion
 	float xmin;
 	float xmax;
 	
@@ -23,13 +27,13 @@ public class PlayerController : MonoBehaviour {
 		float distance = transform.position.z - Camera.main.transform.position.z;
 		xmin = camera.ViewportToWorldPoint(new Vector3(0,0,distance)).x + padding;
 		xmax = camera.ViewportToWorldPoint(new Vector3(1,0,distance)).x - padding;
-		lifeCounter = GameObject.Find("Life").GetComponent<LifeCounter>();
+		lifeCounter = GameObject.Find("GameController").GetComponent<LifeCounter>(); //Agora acha o objeto "GameController", não o texto de vida
 		
 	}
 	void Fire(){
 		Vector3 offset = new Vector3(0,1,0);
 		GameObject beam = Instantiate (laser, transform.position+offset, Quaternion.identity) as GameObject;
-		beam.rigidbody2D.velocity = new Vector3(0, projectileSpeed,0);
+		beam.GetComponent<Rigidbody2D>().velocity = new Vector3(0, projectileSpeed,0);
 		AudioSource.PlayClipAtPoint(fireSound, transform.position);
 	}
 	void Update() {
@@ -64,13 +68,15 @@ public class PlayerController : MonoBehaviour {
 				AudioSource.PlayClipAtPoint(deathSound, transform.position);
 			}
 		}
+		
 	}
 	
 	void Die(){
 		LevelManager man = GameObject.Find ("LevelManager").GetComponent<LevelManager>();
-		man.LoadLevel("Win Screen");
+		man.LoadLevel("Play Again"); //Name of the Scene
 		//if there is an stamina life just create a method above somewhere and call here
 		Destroy(gameObject);
+		
 	}
 	
 	

@@ -4,11 +4,10 @@ using System.Collections;
 
 public class ScoreDisplay : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		Text myText = GetComponent<Text>();
-		myText.text = ScoreKeeper.score.ToString();
-		ScoreKeeper.Reset();
-		}
+		myText.text = PlayerPrefs.GetInt("LastScore").ToString();
+	}
 		
 }

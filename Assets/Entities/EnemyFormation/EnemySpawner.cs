@@ -2,18 +2,22 @@
 using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
+	#region Public Variables
+	
 	public GameObject enemyPrefab;
 	public float width;
 	public float height;
 	public float speed = 5f;
 	public float spawnDelay = 0.5f;
+	#endregion
 	
-	
-	
+	#region Private Variables
 	private bool movingRight = true;
 	private float xMax;
 	private float xMin;
+	private ScoreKeeper scoreKeeper;
 	// Camera.main.ViewportToWorldPoint -> It translates viewport coordinates to world coordinates so we can figure out where in the gamespace a point on the screen is.
+	#endregion
 	
 	void Start () {
 		float distanceToCamera = transform.position.z - Camera.main.transform.position.z;
@@ -22,6 +26,7 @@ public class EnemySpawner : MonoBehaviour {
 		xMax = rightBoudary.x;
 		xMin = leftBoudary.x;
 		SpawnUntilFull();
+		scoreKeeper = GameObject.Find("GameController").GetComponent<ScoreKeeper>();
 	}
 	void SpawnEnemies(){
 		foreach(Transform child in transform){
@@ -64,6 +69,8 @@ public class EnemySpawner : MonoBehaviour {
 		if(AllMembersDead()){
 			Debug.Log("Members dead!");
 			SpawnUntilFull();
+			
+			
 		}
 	}
 	Transform NextFreePosition(){
@@ -80,6 +87,7 @@ public class EnemySpawner : MonoBehaviour {
 				return false;
 			}
 		}
+		scoreKeeper.Wave();
 		return true;
 	}
 }
