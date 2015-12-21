@@ -35,7 +35,22 @@ public class MusicPlayer : MonoBehaviour {
 				music.clip = gameClip;	
 			}
 			else if(level == 2){
+				music.clip = gameClip;	
+			}
+			else if(level == 4){
+				music.clip = gameClip;	
+			}
+			else if(level == 4){
+				music.clip = startClip;	
+			}
+			else if(level == 5){
 				music.clip = endClip;	
+			}
+			else if(level == 6){
+				music.clip = startClip;	
+			}
+			else if(level == 7){
+				music.clip = startClip;	
 			}
 			music.loop = true;
 			music.Play();

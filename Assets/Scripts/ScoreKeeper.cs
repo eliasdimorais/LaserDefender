@@ -24,25 +24,24 @@ public class ScoreKeeper : MonoBehaviour
 	public void Score(int points)
     {
 		score += points;
-		Debug.Log("Scored: " + score);
+		//Debug.Log("Scored: " + score);
 		scoreText.text = score.ToString();
 		if(score >= nextSound)
         {
 			AudioSource.PlayClipAtPoint(levelUp, transform.position);
 			nextSound *= 2;
 			SaveScore();
-		}
-		
+		} 	
 	}
 	//LevelManager.LoadNextLevel() HERE INSIDE IF
 	//LevelManager.ScoreUp() HERE INSIDE IF
 	public void Wave(){
 		wave += 1;
-		Debug.Log("Wave Number: " + wave);
+		//Debug.Log("Wave Number: " + wave);
 		waveText.text = wave.ToString();
 		if (wave == minWaveToLevelUp){
 			gameObject.GetComponent<LevelManager>().LoadNextLevel();
-			gameObject.GetComponent<LevelManager>().ScoreUp();
+			WaveUp();
 			score = lastScore;
 		}
 	}
@@ -54,11 +53,14 @@ public class ScoreKeeper : MonoBehaviour
 	
 	public void SaveScore()//Vou usar PlayerPrefs para guardar o score anterior, não tem muita segurança, mas é o jeito mais facil
     {
+		//Debug.Log(PlayerPrefs.GetInt("LastScore: "));
         PlayerPrefs.SetInt("LastScore", score); //Aqui estamos salvando no PlayerPrefs o antigo score.
         PlayerPrefs.Save(); //Depois de fazer alterações, precisamos salvar pra não serem perdidas.
 		lastScore = score;
-		Debug.Log("Last Score Saved: " + lastScore);
-		
-		
+		//Debug.Log("Last Score Saved: " + lastScore);
+	}
+	
+	public void WaveUp(){
+		minWaveToLevelUp += 1;
 	}
 }

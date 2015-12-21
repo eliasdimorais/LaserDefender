@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider){
 		Projectile missile = collider.gameObject.GetComponent<Projectile>();
 		if(missile){
-			Debug.Log("Player Collided with a missile");
+			//Debug.Log("Player Collided with a missile");
 			health -= missile.GetDamage();
 			missile.Hit();
 			lifeCounter.Lives(lifeValue);
@@ -67,8 +67,7 @@ public class PlayerController : MonoBehaviour {
 				Die();
 				AudioSource.PlayClipAtPoint(deathSound, transform.position);
 			}
-		}
-		
+		}	
 	}
 	
 	void Die(){
